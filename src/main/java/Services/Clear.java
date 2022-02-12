@@ -1,4 +1,12 @@
 package Services;
+
+/**
+ * Clears the database.
+ */
 public class Clear {
- String Clear() { return null;}
+ /**
+  * Clears the database
+  * @return
+  */
+ Results.ClearResult Clear() { return new Results.ClearResult(null, true);}
 }

@@ -1,14 +1,48 @@
 package Models;
 
+/**
+ * Data Access Object modeling the structure of the SQL User table.
+ */
 public class UserModel {
+    /**
+     * The username for this user; the primary key.
+     */
     private String username;
+    /**
+     * The password associated with this username; requires 12 characters, a digit, symbol, whitespace character, arabic letter, and blood of a virgin.
+     */
     private String password;
+    /**
+     * The email associated with this user.
+     */
     private String email;
+    /**
+     * The user's first name.
+     */
     private String firstName;
+    /**
+     * The user's last name.
+     */
     private String lastName;
+    /**
+     * The user's gender; must be 'm' or 'f'.
+     */
     private String gender;
+    /**
+     * The person associated with this user; a foreign key.
+     */
     private String personID;
 
+    /**
+     * Initializes a user object
+     * @param username
+     * @param password
+     * @param email
+     * @param firstName
+     * @param lastName
+     * @param gender
+     * @param personID
+     */
     public UserModel(String username, String password, String email, String firstName, String lastName, String gender, String personID) {
         this.username = username;
         this.password = password;
@@ -46,7 +80,7 @@ public class UserModel {
                 email.equals(that.email) &&
                 firstName.equals(that.firstName) &&
                 lastName.equals(that.lastName) &&
-                gender == that.gender &&
+                gender.equals(that.gender) &&
                 personID.equals(that.personID);
     }
 }

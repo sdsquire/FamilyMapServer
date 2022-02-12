@@ -5,11 +5,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Intermedates between the User models and the SQL database
+ *
+ */
 public class UserDAO {
+    /**
+     * The connection with the database
+     */
     private final Connection conn;
 
     public UserDAO(Connection conn) { this.conn = conn; }
 
+    /**
+     * Inserts a new user into the database.
+     * @param user
+     * @throws DataAccessException
+     */
     public void insert(UserModel user) throws DataAccessException {
         //We can structure our string to be similar to a sql command, but if we insert question
         //marks we can change them later with help from the statement
@@ -32,6 +44,13 @@ public class UserDAO {
         }
     }
 
+
+    /**
+     * Finds a user in the database.
+     * @param userID
+     * @return
+     * @throws DataAccessException
+     */
     public UserModel find(String userID) throws DataAccessException {
         UserModel user;
         ResultSet rs = null;
@@ -59,6 +78,13 @@ public class UserDAO {
 
         }
         return null;
+    }
+
+    /**
+     * Drops all entries in the User database.
+     */
+    public void Clear() {
+
     }
 }
 

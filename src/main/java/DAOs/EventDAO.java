@@ -1,13 +1,18 @@
 package DAOs;
 
 import Models.EventModel;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Intermediates between Event models and the SQL database
+ */
 public class EventDAO {
+    /**
+     * The connection with the database
+     */
     private final Connection conn;
 
     public EventDAO(Connection conn)
@@ -15,6 +20,11 @@ public class EventDAO {
         this.conn = conn;
     }
 
+    /**
+     * Inserts a new event into the database.
+     * @param event
+     * @throws DataAccessException
+     */
     public void insert(EventModel event) throws DataAccessException {
         //We can structure our string to be similar to a sql command, but if we insert question
         //marks we can change them later with help from the statement
@@ -40,6 +50,12 @@ public class EventDAO {
         }
     }
 
+    /**
+     * Finds an event in the database.
+     * @param eventID
+     * @return
+     * @throws DataAccessException
+     */
     public EventModel find(String eventID) throws DataAccessException {
         EventModel event;
         ResultSet rs = null;
@@ -68,5 +84,13 @@ public class EventDAO {
 
         }
         return null;
+    }
+
+
+    /**
+     * Drops all entries in the Event database.
+     */
+    public void Clear() {
+
     }
 }

@@ -1,0 +1,49 @@
+DROP TABLE IF EXISTS User;
+CREATE TABLE User (
+	username varchar(255) NOT NULL PRIMARY KEY,
+	password varchar(255) NOT NULL,
+	email varchar(255) NOT NULL,
+	firstName varchar(255) NOT NULL,
+	lastName varchar(255) NOT NULL,
+	gender varchar(1) CHECK(gender IN ('m', 'f')) NOT NULL,
+	personID varchar(255) NOT NULL,
+	FOREIGN KEY(personID) REFERENCES Person(personID)
+);
+
+DROP TABLE IF EXISTS Person;
+CREATE TABLE Person (
+	personID varchar(255) NOT NULL PRIMARY KEY,
+	associatedUsername varchar(255) NOT NULL,
+	firstName varchar(255) NOT NULL,
+	lastName varchar(255) NOT NULL,
+	gender varchar(1) CHECK(gender IN ('m', 'f')) NOT NULL,
+	fatherID varchar(255),
+	motherID varchar(255),
+	spouseID varchar(255),
+	FOREIGN KEY(associatedUsername) REFERENCES User(username),
+	FOREIGN KEY(fatherID) REFERENCES Person(personID),
+	FOREIGN KEY(motherID) REFERENCES Person(personID),
+	FOREIGN KEY(spouseID) REFERENCES Person(personID)
+);
+
+DROP TABLE IF EXISTS Event;
+CREATE TABLE Event (
+	eventID varchar(255) NOT NULL PRIMARY KEY,
+	associatedUsername varchar(255) NOT NULL,
+	personID varchar(255) NOT NULL,
+	latitude FLOAT NOT NULL,
+	longitude FLOAT NOT NULL,
+	country varchar(127) NOT NULL,
+	city varchar(127) NOT NULL,
+	eventType varchar(63) NOT NULL,
+	year INT NOT NULL,
+	FOREIGN KEY(associatedUsername) REFERENCES User(username),
+	FOREIGN KEY(personID) REFERENCES Person(personID)
+);
+
+DROP TABLE IF EXISTS Authtoken;
+CREATE TABLE Authtoken (
+	authtoken varchar(255) NOT NULL PRIMARY KEY,
+	username varchar(255) NOT NULL,
+	FOREIGN KEY(username) REFERENCES User(username)
+);

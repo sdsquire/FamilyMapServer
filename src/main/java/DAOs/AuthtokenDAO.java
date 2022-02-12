@@ -5,10 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Intermediates between Authtoken models and the SQL database.
+ */
 public class AuthtokenDAO {
+    /**
+     * The connection to the database
+     */
     private final Connection conn;
     public AuthtokenDAO(Connection conn) { this.conn = conn; }
 
+    /**
+     * Inserts a new authtoken into the database.
+     * @param authtoken
+     * @throws DataAccessException
+     */
     public void insert(AuthtokenModel authtoken) throws DataAccessException {
         //We can structure our string to be similar to a sql command, but if we insert question
         //marks we can change them later with help from the statement
@@ -26,6 +37,12 @@ public class AuthtokenDAO {
         }
     }
 
+    /**
+     * Finds an authtoken in the database.
+     * @param authtokenID
+     * @return
+     * @throws DataAccessException
+     */
     public AuthtokenModel find(String authtokenID) throws DataAccessException {
         AuthtokenModel authtoken;
         ResultSet rs = null;
@@ -51,6 +68,13 @@ public class AuthtokenDAO {
 
         }
         return null;
+    }
+
+    /**
+     * Drops all entries in the authtoken database.
+     */
+    public void Clear() {
+
     }
 }
 

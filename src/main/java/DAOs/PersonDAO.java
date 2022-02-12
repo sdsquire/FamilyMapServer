@@ -5,11 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Intermediates between Person models and the SQL database
+ */
 public class PersonDAO {
+    /**
+     * The connection with the database.
+     */
     private final Connection conn;
 
     public PersonDAO(Connection conn) { this.conn = conn; }
 
+    /**
+     * Inserts a new person into the database.
+     * @param person
+     * @throws DataAccessException
+     */
     public void insert(PersonModel person) throws DataAccessException {
         //We can structure our string to be similar to a sql command, but if we insert question
         //marks we can change them later with help from the statement
@@ -33,6 +44,13 @@ public class PersonDAO {
         }
     }
 
+
+    /**
+     * Finds a person in the database.
+     * @param personID
+     * @return
+     * @throws DataAccessException
+     */
     public PersonModel find(String personID) throws DataAccessException {
         PersonModel person;
         ResultSet rs = null;
@@ -60,5 +78,12 @@ public class PersonDAO {
 
         }
         return null;
+    }
+
+    /**
+     * Drops all entries in the Person database.
+     */
+    public void Clear() {
+
     }
 }
