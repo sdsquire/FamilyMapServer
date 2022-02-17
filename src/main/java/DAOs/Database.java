@@ -1,9 +1,6 @@
 package DAOs;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Database {
     private Connection conn;
@@ -14,13 +11,15 @@ public class Database {
         try {
             //The Structure for this Connection is driver:language:path
             //The path assumes you start in the root of your project unless given a non-relative path
-            final String CONNECTION_URL = "jdbc:sqlite:familymap.sqlite";
+            final String CONNECTION_URL = "jdbc:sqlite:MapDatabase.sqlite";
 
             // Open a database connection to the file given in the path
             conn = DriverManager.getConnection(CONNECTION_URL);
 
             // Start a transaction
             conn.setAutoCommit(false);
+
+            System.out.println("Successfully opened database!");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Unable to open connection to database");
@@ -29,13 +28,7 @@ public class Database {
         return conn;
     }
 
-    public Connection getConnection() throws DataAccessException {
-        if(conn == null) {
-            return openConnection();
-        } else {
-            return conn;
-        }
-    }
+    public Connection getConnection() throws DataAccessException { return conn == null ? openConnection() : conn; }
 
     //When we are done manipulating the database it is important to close the connection. This will
     //End the transaction and allow us to either commit our changes to the database or rollback any
@@ -63,14 +56,16 @@ public class Database {
         }
     }
 
-    public void clearTables() throws DataAccessException
-    {
-
-        try (Statement stmt = conn.createStatement()){
-            String sql = "DELETE FROM Events";
-            stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new DataAccessException("SQL Error encountered while clearing tables");
+    public void clearTables() throws DataAccessException {
+        String [] tables = {"User, Authtoken, Person, User"};
+        for (String table : tables ) {
+            String sql = "DELETE FROM" + table;
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DataAccessException("Error encountered while clearing table");
+            }
         }
     }
 }

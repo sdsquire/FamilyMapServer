@@ -5,43 +5,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Intermediates between Authtoken models and the SQL database.
- */
+/** Intermediates between Authtoken models and the SQL database. */
 public class AuthtokenDAO {
-    /**
-     * The connection to the database
-     */
+    /** The connection to the database */
     private final Connection conn;
     public AuthtokenDAO(Connection conn) { this.conn = conn; }
 
     /**
      * Inserts a new authtoken into the database.
-     * @param authtoken
-     * @throws DataAccessException
+     * @param authtoken An AuthtokenModel representation of the authtoken to be
+     * @throws DataAccessException if there is an error accessing the data
      */
     public void insert(AuthtokenModel authtoken) throws DataAccessException {
-        //We can structure our string to be similar to a sql command, but if we insert question
-        //marks we can change them later with help from the statement
         String sql = "INSERT INTO Authtoken (authtoken, username) VALUES(?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            //Using the statements built-in set(type) functions we can pick the question mark we want
-            //to fill in and give it a proper value. The first argument corresponds to the first
-            //question mark found in our sql String
             stmt.setString(1, authtoken.getAuthtoken());
             stmt.setString(2, authtoken.getUsername());
 
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new DataAccessException("Error encountered while inserting into the database");
-        }
+        } catch (SQLException e) { throw new DataAccessException("Error encountered while inserting into the database"); }
     }
 
     /**
      * Finds an authtoken in the database.
-     * @param authtokenID
-     * @return
-     * @throws DataAccessException
+     * @param authtokenID the primary key for the authtoken
+     * @return authtoken the AuthtokenModel representation searched for
+     * @throws DataAccessException if there was an error accessing the data
      */
     public AuthtokenModel find(String authtokenID) throws DataAccessException {
         AuthtokenModel authtoken;
@@ -58,22 +47,21 @@ public class AuthtokenDAO {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while finding authtoken");
         } finally {
-            if(rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
+            if(rs != null)
+                try { rs.close(); }
+                catch (SQLException e) { e.printStackTrace(); }
         }
         return null;
     }
 
-    /**
-     * Drops all entries in the authtoken database.
-     */
-    public void Clear() {
+    /** Drops all entries in the authtoken database. */
+    public void Clear() throws DataAccessException {
+        String sql = "DELETE FROM Authtoken";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) { stmt.executeUpdate(); }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException();
+        }
 
     }
 }

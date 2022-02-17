@@ -6,15 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Intermediates between Event models and the SQL database
- */
+/** Intermediates between Event models and the SQL database */
 public class EventDAO {
-    /**
-     * The connection with the database
-     */
+    /** The connection with the database */
     private final Connection conn;
-
     public EventDAO(Connection conn)
     {
         this.conn = conn;
@@ -22,18 +17,13 @@ public class EventDAO {
 
     /**
      * Inserts a new event into the database.
-     * @param event
-     * @throws DataAccessException
+     * @param event An EventModel representation of the event to be inserted
+     * @throws DataAccessException if there is an error accessing the data
      */
     public void insert(EventModel event) throws DataAccessException {
-        //We can structure our string to be similar to a sql command, but if we insert question
-        //marks we can change them later with help from the statement
-        String sql = "INSERT INTO Event (EventID, AssociatedUsername, PersonID, Latitude, Longitude, " +
+        String sql = "INSERT INTO Event (eventID, AssociatedUsername, PersonID, Latitude, Longitude, " +
                 "Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            //Using the statements built-in set(type) functions we can pick the question mark we want
-            //to fill in and give it a proper value. The first argument corresponds to the first
-            //question mark found in our sql String
             stmt.setString(1, event.getEventID());
             stmt.setString(2, event.getUsername());
             stmt.setString(3, event.getPersonID());
@@ -45,52 +35,48 @@ public class EventDAO {
             stmt.setInt(9, event.getYear());
 
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new DataAccessException("Error encountered while inserting into the database");
-        }
+        } catch (SQLException e) { throw new DataAccessException("Error encountered while inserting into the database"); }
     }
 
     /**
      * Finds an event in the database.
-     * @param eventID
-     * @return
-     * @throws DataAccessException
+     * @param eventID The primary key for the event
+     * @return event the EventModel representation of the event searched for
+     * @throws DataAccessException if there is an issue with the SQL database
      */
     public EventModel find(String eventID) throws DataAccessException {
         EventModel event;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Events WHERE EventID = ?;";
+        String sql = "SELECT * FROM Event WHERE eventID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, eventID);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                event = new EventModel(rs.getString("EventID"), rs.getString("AssociatedUsername"),
-                        rs.getString("PersonID"), rs.getFloat("Latitude"), rs.getFloat("Longitude"),
-                        rs.getString("Country"), rs.getString("City"), rs.getString("EventType"),
-                        rs.getInt("Year"));
+                event = new EventModel(rs.getString("eventID"), rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getFloat("latitude"), rs.getFloat("longitude"),
+                        rs.getString("country"), rs.getString("city"), rs.getString("eventType"),
+                        rs.getInt("year"));
                 return event;
             }
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while finding event");
         } finally {
-            if(rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
+            if(rs != null)
+                try { rs.close(); }
+                catch (SQLException e) { e.printStackTrace(); }
         }
         return null;
     }
 
 
-    /**
-     * Drops all entries in the Event database.
-     */
-    public void Clear() {
-
+    /** Drops all entries in the Event database. */
+    public void Clear() throws DataAccessException {
+        String sql = "DELETE FROM Event";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) { stmt.executeUpdate(); }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while clearing table");
+        }
     }
 }

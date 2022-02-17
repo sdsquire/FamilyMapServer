@@ -5,30 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Intermediates between Person models and the SQL database
- */
+/** Intermediates between Person models and the SQL database */
 public class PersonDAO {
-    /**
-     * The connection with the database.
-     */
+    /** The connection with the database. */
     private final Connection conn;
 
     public PersonDAO(Connection conn) { this.conn = conn; }
 
     /**
      * Inserts a new person into the database.
-     * @param person
-     * @throws DataAccessException
+     * @param person A PersonModel representation of the person to be inserted
+     * @throws DataAccessException if there is an error accessing the data
      */
     public void insert(PersonModel person) throws DataAccessException {
-        //We can structure our string to be similar to a sql command, but if we insert question
-        //marks we can change them later with help from the statement
-        String sql = "INSERT INTO Person (personID, associatedUsername, firstName, lastName, gender, fatherID, motherID, spouseID) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Person (personID, associatedUsername, firstName, lastName, gender, fatherID, motherID, spouseID) " +
+                    "VALUES(?,?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            //Using the statements built-in set(type) functions we can pick the question mark we want
-            //to fill in and give it a proper value. The first argument corresponds to the first
-            //question mark found in our sql String
             stmt.setString(1, person.getPersonID());
             stmt.setString(2, person.getAssociatedUsername());
             stmt.setString(3, person.getFirstName());
@@ -39,17 +31,14 @@ public class PersonDAO {
             stmt.setString(8, person.getSpouseID());
 
             stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new DataAccessException("Error encountered while inserting into the database");
-        }
+        } catch (SQLException e) { throw new DataAccessException("Error encountered while inserting into the database"); }
     }
-
 
     /**
      * Finds a person in the database.
-     * @param personID
-     * @return
-     * @throws DataAccessException
+     * @param personID The primary key for the person
+     * @return person the PersonModel representation of the person searched for
+     * @throws DataAccessException if there is an error accessing that data
      */
     public PersonModel find(String personID) throws DataAccessException {
         PersonModel person;
@@ -68,22 +57,20 @@ public class PersonDAO {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while finding person");
         } finally {
-            if(rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
+            if(rs != null)
+                try { rs.close(); }
+                catch (SQLException e) { e.printStackTrace(); }
         }
         return null;
     }
 
-    /**
-     * Drops all entries in the Person database.
-     */
-    public void Clear() {
-
+    /** Drops all entries in the Person database. */
+    public void Clear() throws DataAccessException {
+        String sql = "DELETE FROM Person";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) { stmt.executeUpdate(); }
+        catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException();
+        }
     }
 }
