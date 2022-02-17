@@ -14,12 +14,18 @@ public class Main {
             return;
         }
 
-        EventDAO eventDao = new EventDAO(db.getConnection());
-        eventDao.insert(new EventModel("3505", "sdsqures", "1234", 260198, 300999, "USA", "Provo", "Marriage", 2020));
-        System.out.println(eventDao.find("3505").getPersonID());
-//        System.out.println(eventDao.find("3506").getPersonID());
-        db.clearTables();
-        db.closeConnection(true);
+        try {
+            EventDAO eventDao = new EventDAO(db.getConnection());
+            eventDao.insert(new EventModel("3505", "sdsqures", "1234", 260198, 300999, "USA", "Provo", "Marriage", 2020));
 
+//                    eventDao.insert(new EventModel("3505", "sdsqures", "1234", 260198, 300999, "USA", "Provo", "Marriage", 2020));
+            System.out.println(eventDao.find("3505").getPersonID());
+            //        System.out.println(eventDao.find("3506").getPersonID());
+            db.clearTables();
+            db.closeConnection(true);
+        } catch (DataAccessException e) {
+            db.closeConnection(false);
+            throw e;
+        }
     }
 }

@@ -43,7 +43,7 @@ public class PersonDAO {
     public PersonModel find(String personID) throws DataAccessException {
         PersonModel person;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Events WHERE personID = ?;";
+        String sql = "SELECT * FROM Person WHERE personID = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, personID);
             rs = stmt.executeQuery();

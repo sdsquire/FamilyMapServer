@@ -66,7 +66,7 @@ public class UserDAO {
 
     /** Drops all entries in the User database. */
     public void Clear() throws DataAccessException {
-        String sql = "DELETE FROM Events;";
+        String sql = "DELETE FROM Users;";
         try (Statement stmt = conn.createStatement()){ stmt.executeUpdate(sql); }
         catch (SQLException e) {
             e.printStackTrace();

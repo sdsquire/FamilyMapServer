@@ -1,12 +1,9 @@
 package DAOs;
-
 import java.sql.*;
 
 public class Database {
     private Connection conn;
 
-    //Whenever we want to make a change to our database we will have to open a connection and use
-    //Statements created by that connection to initiate transactions
     public Connection openConnection() throws DataAccessException {
         try {
             //The Structure for this Connection is driver:language:path
@@ -18,8 +15,6 @@ public class Database {
 
             // Start a transaction
             conn.setAutoCommit(false);
-
-            System.out.println("Successfully opened database!");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Unable to open connection to database");
@@ -39,14 +34,10 @@ public class Database {
     //OR PROBLEMS YOU ENCOUNTER
     public void closeConnection(boolean commit) throws DataAccessException {
         try {
-            if (commit) {
-                //This will commit the changes to the database
+            if (commit)
                 conn.commit();
-            } else {
-                //If we find out something went wrong, pass a false into closeConnection and this
-                //will rollback any changes we made during this connection
+            else
                 conn.rollback();
-            }
 
             conn.close();
             conn = null;
@@ -57,9 +48,9 @@ public class Database {
     }
 
     public void clearTables() throws DataAccessException {
-        String [] tables = {"User, Authtoken, Person, User"};
+        String [] tables = {"User", "Authtoken", "Person", "Event"};
         for (String table : tables ) {
-            String sql = "DELETE FROM" + table;
+            String sql = "DELETE FROM " + table;
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.executeUpdate();
             } catch (SQLException e) {
@@ -69,4 +60,3 @@ public class Database {
         }
     }
 }
-

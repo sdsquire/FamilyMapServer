@@ -35,7 +35,7 @@ public class AuthtokenModel {
             return false;
         AuthtokenModel that = (AuthtokenModel) o;
         return authtoken.equals(that.authtoken) &&
-                username.equals(that.authtoken);
+                username.equals(that.username);
 
     }
 }

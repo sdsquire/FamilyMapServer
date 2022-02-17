@@ -35,7 +35,7 @@ public class AuthtokenDAO {
     public AuthtokenModel find(String authtokenID) throws DataAccessException {
         AuthtokenModel authtoken;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Events WHERE authtokenID = ?;";
+        String sql = "SELECT * FROM Authtoken WHERE authtoken = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, authtokenID);
             rs = stmt.executeQuery();

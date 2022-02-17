@@ -1,53 +1,25 @@
 package Models;
 
-/**
- * Data Access Object modeling the structure of the SQL Person table.
- */
+/** Data Access Object modeling the structure of the SQL Person table. */
 public class PersonModel{
-    /**
-     * A unique identifier for a person; the primary key.
-     */
+    /** A unique identifier for a person; the primary key. */
     private String personID;
-    /**
-     * The username associated with the person; a foreign key.
-     */
+    /** The username associated with the person; a foreign key. */
     private String associatedUsername;
-    /**
-     * The person's first name.
-     */
+    /** The person's first name. */
     private String firstName;
-    /**
-     * The person's last name.
-     */
+    /** The person's last name. */
     private String lastName;
-    /**
-     * The person's gender; must be 'm' or 'f'.
-     */
+    /** The person's gender; must be 'm' or 'f'. */
     private String gender;
-    /**
-     * The unique ID of the person's father; a foreign key.
-     */
+    /** The unique ID of the person's father; a foreign key. */
     private String fatherID;
-    /**
-     * The unique ID of the person's mother; a foreign key.
-     */
+    /** The unique ID of the person's mother; a foreign key. */
     private String motherID;
-    /**
-     * The unique ID of the person's spouse; a foreign key.
-     */
+    /** The unique ID of the person's spouse; a foreign key. */
     private String spouseID;
 
-    /**
-     * Initializes a person object.
-     * @param personID
-     * @param associatedUsername
-     * @param firstName
-     * @param lastName
-     * @param gender
-     * @param fatherID
-     * @param motherID
-     * @param spouseID
-     */
+    /** Initializes a person object; parameters are equivalent to data members. */
     public PersonModel(String personID, String associatedUsername, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
         this.personID = personID;
         this.associatedUsername = associatedUsername;
@@ -82,7 +54,7 @@ public class PersonModel{
         if (o == null || getClass() != o.getClass())
             return false;
         PersonModel that = (PersonModel) o;
-        return gender == that.gender &&
+        return gender.equals(that.gender) &&
                 personID.equals(that.personID) &&
                 associatedUsername.equals(that.associatedUsername) &&
                 firstName.equals(that.firstName) &&
