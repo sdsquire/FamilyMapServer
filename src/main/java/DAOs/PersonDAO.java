@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Resources.*;
 
 /** Intermediates between Person models and the SQL database */
 public class PersonDAO {

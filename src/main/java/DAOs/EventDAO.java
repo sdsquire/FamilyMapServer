@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Resources.*;
 
 /** Intermediates between Event models and the SQL database */
 public class EventDAO {

@@ -1,7 +1,5 @@
 package DAOTests;
 
-import DAOs.DataAccessException;
-import DAOs.Database;
 import DAOs.UserDAO;
 import Models.UserModel;
 import org.junit.jupiter.api.AfterEach;
@@ -9,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import static org.junit.jupiter.api.Assertions.*;
+import Resources.*;
 
 public class UserDAOTest {
     private Database db;

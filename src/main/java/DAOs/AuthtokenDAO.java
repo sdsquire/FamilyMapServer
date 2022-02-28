@@ -1,4 +1,5 @@
 package DAOs;
+import Resources.DataAccessException;
 import Models.AuthtokenModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

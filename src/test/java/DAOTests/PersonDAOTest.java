@@ -1,7 +1,6 @@
 package DAOTests;
 
-import DAOs.DataAccessException;
-import DAOs.Database;
+import Resources.*;
 import DAOs.PersonDAO;
 import Models.PersonModel;
 import org.junit.jupiter.api.AfterEach;

@@ -1,7 +1,6 @@
 package DAOTests;
 
-import DAOs.DataAccessException;
-import DAOs.Database;
+import Resources.*;
 import DAOs.AuthtokenDAO;
 import Models.AuthtokenModel;
 import org.junit.jupiter.api.AfterEach;

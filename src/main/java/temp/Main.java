@@ -1,9 +1,8 @@
 package temp;
 
-import DAOs.DataAccessException;
-import DAOs.Database;
 import DAOs.EventDAO;
 import Models.EventModel;
+import Resources.*;
 
 public class Main {
     public static void main (String [] args) throws DataAccessException {

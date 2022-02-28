@@ -1,4 +1,4 @@
-package DAOs;
+package Resources;
 import java.sql.*;
 
 public class Database {

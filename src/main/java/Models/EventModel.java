@@ -4,41 +4,23 @@ package Models;
  * Data Access Object modeling the structure of the SQL Event table.
  */
 public class EventModel {
-    /**
-     * A unique identifier for the event; the primary key.
-     */
+    /** A unique identifier for the event; the primary key. */
     private String eventID;
-    /**
-     * The username associated with the person; a foreign key.
-     */
+    /** The username associated with the person; a foreign key. */
     private String associatedUsername;
-    /**
-     * The ID of the person to whim this event belongs; a foreign key.
-     */
+    /** The ID of the person to whim this event belongs; a foreign key. */
     private String personID;
-    /**
-     * The latitude coordinates where the event took place.
-     */
+    /** The latitude coordinates where the event took place. */
     private float latitude;
-    /**
-     * The longitude coordinates where the event took place.
-     */
+    /** The longitude coordinates where the event took place. */
     private float longitude;
-    /**
-     * The country in which the event took place.
-     */
+    /** The country in which the event took place. */
     private String country;
-    /**
-     * The city in which the event took place.
-     */
+    /** The city in which the event took place. */
     private String city;
-    /**
-     * The type of event that took place.
-     */
+    /** The type of event that took place. */
     private String eventType;
-    /**
-     * The year the event took place.
-     */
+    /** The year the event took place. */
     private int year;
 
     public EventModel(String eventID, String username, String personID, float latitude, float longitude,

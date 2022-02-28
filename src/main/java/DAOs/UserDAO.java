@@ -1,5 +1,6 @@
 package DAOs;
 import Models.UserModel;
+import Resources.*;
 
 import javax.xml.crypto.Data;
 import java.sql.*;
@@ -43,7 +44,7 @@ public class UserDAO {
     public UserModel find(String userID) throws DataAccessException {
         UserModel user;
         ResultSet rs = null;
-        String sql = "SELECT * FROM Events WHERE userID = ?;";
+        String sql = "SELECT * FROM User WHERE username = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, userID);
             rs = stmt.executeQuery();
@@ -66,7 +67,7 @@ public class UserDAO {
 
     /** Drops all entries in the User database. */
     public void Clear() throws DataAccessException {
-        String sql = "DELETE FROM Users;";
+        String sql = "DELETE FROM User;";
         try (Statement stmt = conn.createStatement()){ stmt.executeUpdate(sql); }
         catch (SQLException e) {
             e.printStackTrace();
