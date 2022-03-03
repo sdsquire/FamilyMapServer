@@ -4,18 +4,18 @@ import java.net.*;
 import com.sun.net.httpserver.*;
 import Handlers.*;
 
-/*
+/**
 	When the server runs, all command-line arguments are passed in to Server.main.
 	For this server, the only command-line argument is the port number on which 
 		the server should accept incoming client connections.
 */
 public class Server {
 	private static final int MAX_WAITING_CONNECTIONS = 12;
-	private HttpServer server;
 
-	private void run(String portNumber) {
+    private void run(String portNumber) {
 		System.out.println("Initializing HTTP Server");
-		try {
+        HttpServer server;
+        try {
 			// Create a new HttpServer object.
 			// Rather than calling "new" directly, we instead create
 			// the object by calling the HttpServer.create static factory method.
@@ -28,18 +28,14 @@ public class Server {
 		server.setExecutor(null);
 
 		System.out.println("Creating contexts");
-//		server.createContext("/clear", new ClearHandler());
+		server.createContext("/user/register", new RegisterHandler());
+		server.createContext("/clear", new ClearHandler());
 //		server.createContext("/fill", new FillHandler());
 //		server.createContext("/event", new GetEventHandler());
 //		server.createContext("/person", new GetPersonHandler());
 //		server.createContext("/load", new LoadHandler());
 //		server.createContext("/login", new LoginHandler());
 //		server.createContext("/register", new RegisterHandler());
-		// Create and install the "default" (or "file") HTTP handler.
-		// All requests that do not match the other handler URLs
-		// will be passed to this handle.
-		// These are requests to download a file from the server 
-		// (e.g., web site files)
 		server.createContext("/", new FileHandler());
 		
 		// Log message indicating that the HttpServer is about to start accepting incoming client connections.

@@ -1,8 +1,6 @@
 package Models;
 
-/**
- * Data Access Object modeling the structure of the SQL Event table.
- */
+/** Data Access Object modeling the structure of the SQL Event table. */
 public class EventModel {
     /** A unique identifier for the event; the primary key. */
     private String eventID;
@@ -23,6 +21,7 @@ public class EventModel {
     /** The year the event took place. */
     private int year;
 
+    /** Initializes an event object; parameters equivalent to data members */
     public EventModel(String eventID, String username, String personID, float latitude, float longitude,
                  String country, String city, String eventType, int year) {
         this.eventID = eventID;

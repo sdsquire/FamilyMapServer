@@ -1,28 +1,19 @@
 package Requests;
-
 import Models.EventModel;
 import Models.PersonModel;
 import Models.UserModel;
-
 import java.util.ArrayList;
 
-/**
- * Passes data to be loaded into the server.
- */
+/** Passes data to be loaded into the server. */
 public class LoadRequest {
-    /**
-     * An array of users to load.
-     */
+    /** An array of users to load. */
     ArrayList<UserModel> users;
-    /**
-     * An array of persons to load.
-     */
+    /** An array of persons to load. */
     ArrayList<PersonModel> persons;
-    /**
-     * An array of events to load.
-     */
+    /** An array of events to load. */
     ArrayList<EventModel> events;
 
+    /** Initializes a load request; parameters equivalent to data members */
     public LoadRequest(ArrayList<UserModel> users, ArrayList<PersonModel> persons, ArrayList<EventModel> events) {
         this.users = users;
         this.persons = persons;

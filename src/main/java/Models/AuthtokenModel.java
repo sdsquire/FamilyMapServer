@@ -1,23 +1,13 @@
 package Models;
 
-/**
- * Data Access Object modeling the structure of the SQL Authtoken table.
- */
+/** Data Access Object modeling the structure of the SQL Authtoken table. */
 public class AuthtokenModel {
-    /**
-     * The unique authtoken generated upon login; the primary key.
-     */
+    /** The unique authtoken generated upon login; the primary key. */
     private String authtoken;
-    /**
-     * The username associated with this authtoken; a foreign key.
-     */
+    /** The username associated with this authtoken; a foreign key. */
     private String username;
 
-    /**
-     * Initializes an authtoken object.
-     * @param authtoken
-     * @param username
-     */
+    /** Initializes an authtoken object; parameters equivalent to data members */
     public AuthtokenModel(String authtoken, String username) {
         this.authtoken = authtoken;
         this.username = username;

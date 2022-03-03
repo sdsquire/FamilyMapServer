@@ -14,7 +14,6 @@ public class Load {
   */
  public LoadResult Load(LoadRequest req) {
   Clear clear = new Clear();
-  clear.Clear();
 
   String message = null;
   return new LoadResult(message, true);

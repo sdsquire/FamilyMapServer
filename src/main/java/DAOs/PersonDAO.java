@@ -10,7 +10,6 @@ import Resources.*;
 public class PersonDAO {
     /** The connection with the database. */
     private final Connection conn;
-
     public PersonDAO(Connection conn) { this.conn = conn; }
 
     /**

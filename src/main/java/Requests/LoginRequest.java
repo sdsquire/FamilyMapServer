@@ -1,18 +1,13 @@
 package Requests;
 
-/**
- * Requests a returning user to be logged in.
- */
+/** Requests a returning user to be logged in. */
 public class LoginRequest {
-    /**
-     * The user's username.
-     */
+    /** The user's username. */
     private String username;
-    /**
-     * The user's password.
-     */
+    /** The user's password. */
     private String password;
 
+    /** Initializes a login request; parameters equivalent to data members */
     public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;

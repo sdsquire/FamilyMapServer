@@ -1,18 +1,12 @@
 package DAOs;
 import Models.UserModel;
 import Resources.*;
-
-import javax.xml.crypto.Data;
 import java.sql.*;
 
-/**
- * Intermedates between the User models and the SQL database
- *
- */
+/** Intermedates between the User models and the SQL database */
 public class UserDAO {
     /** The connection with the database */
     private final Connection conn;
-
     public UserDAO(Connection conn) { this.conn = conn; }
 
     /**
