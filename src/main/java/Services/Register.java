@@ -16,12 +16,7 @@ public class Register {
     public RegisterResult register(RegisterRequest req) {
         Database db = new Database();
         try {
-            // SET UP DAOs //
             Connection conn = db.openConnection();
-            PersonDAO pDAO = new PersonDAO(conn);
-            UserDAO uDAO = new UserDAO(conn);
-            AuthtokenDAO authDAO = new AuthtokenDAO(conn);
-
             // SET UP MODELS WITH UNIQUE IDENTIFIERS //
             String personID = UUID.randomUUID().toString();
             String authtoken = UUID.randomUUID().toString();
@@ -31,9 +26,9 @@ public class Register {
             AuthtokenModel aModel = new AuthtokenModel(authtoken, req.getUsername());
 
             // INSERT INTO DAOs //
-            pDAO.insert(pModel);
-            uDAO.insert(uModel);
-            authDAO.insert(aModel);
+            new PersonDAO(conn).insert(pModel);
+            new UserDAO(conn).insert(uModel);
+            new AuthtokenDAO(conn).insert(aModel);
 
             db.closeConnection(true);
             return new RegisterResult(authtoken, req.getUsername(), personID);
@@ -41,7 +36,7 @@ public class Register {
             try {
                 db.closeConnection(false);
             } catch (DataAccessException ex) {}
-            return new RegisterResult("User already in database");
+            return new RegisterResult(e.getMessage());
         }
     }
 }

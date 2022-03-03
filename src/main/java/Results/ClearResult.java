@@ -6,4 +6,6 @@ public class ClearResult extends Result {
         this.message = "Clear succeeded.";
         success = true;
     }
+
+    public ClearResult(String message) { super(message); }
 }

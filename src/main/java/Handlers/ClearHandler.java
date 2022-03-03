@@ -21,6 +21,7 @@ public class ClearHandler implements HttpHandler {
             e.printStackTrace();
         }
 
+
         exchange.close();
     }
 }

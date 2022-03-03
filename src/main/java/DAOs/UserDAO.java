@@ -26,7 +26,14 @@ public class UserDAO {
             stmt.setString(7, user.getPersonID());
 
             stmt.executeUpdate();
-        } catch (SQLException e) { throw new DataAccessException("Error encountered while inserting into the database"); }
+        } catch (SQLException e) {
+            if (e.getMessage().contains("CONSTRAINT_CHECK"))
+                throw new DataAccessException("Improper data entered");
+            else if (e.getMessage().contains("PRIMARY KEY"))
+                throw new DataAccessException("User already exists");
+            else
+                throw new DataAccessException("Error accessing data");
+        }
     }
 
     /**
