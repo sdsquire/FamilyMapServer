@@ -5,7 +5,6 @@ import Models.*;
 import Resources.*;
 import Requests.LoginRequest;
 import Results.LoginResult;
-
 import java.sql.Connection;
 import java.util.UUID;
 
@@ -22,7 +21,7 @@ public class Login {
             // CHECK REQUEST VALIDITY
             UserModel user = new UserDAO(conn).find(req.getUsername());
             if (user == null)
-                throw new DataAccessException("No user exists with username \"" + req.getUsername() + "\"");
+                throw new DataAccessException("No user exists with username: " + req.getUsername());
             if (!user.getPassword().equals(req.getPassword()))
                 throw new InvalidRequestException("Incorrect password");
 
@@ -34,6 +33,9 @@ public class Login {
             db.closeConnection(true);
             return new Results.LoginResult(authtoken, req.getUsername(), personID);
         } catch (DataAccessException | InvalidRequestException e) {
+            try {
+                db.closeConnection(false);
+            } catch (DataAccessException ex) {}
             return new Results.LoginResult(e.getMessage());
         }
     }

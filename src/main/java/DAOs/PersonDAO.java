@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import Resources.*;
 
 /** Intermediates between Person models and the SQL database */
-public class PersonDAO {
-    /** The connection with the database. */
-    private final Connection conn;
-    public PersonDAO(Connection conn) { this.conn = conn; }
+public class PersonDAO extends DAO {
+    public PersonDAO(Connection conn) {
+        super(conn);
+        tableName = "Person";
+    }
 
     /**
      * Inserts a new person into the database.
@@ -34,8 +35,10 @@ public class PersonDAO {
         } catch (SQLException e) {
             if (e.getMessage().contains("CONSTRAINT_CHECK"))
                 throw new DataAccessException("Improper data entered");
-            else if (e.getMessage().contains("PRIMARY_KEY"))
+            else if (e.getMessage().contains("PRIMARYKEY"))
                 throw new DataAccessException("User already exists");
+            else if (e.getMessage().contains("NOTNULL"))
+                throw new DataAccessException("Cannot register user with missing data");
             else
                 throw new DataAccessException("Error accessing data");
         }
@@ -69,15 +72,5 @@ public class PersonDAO {
                 catch (SQLException e) { e.printStackTrace(); }
         }
         return null;
-    }
-
-    /** Drops all entries in the Person database. */
-    public void Clear() throws DataAccessException {
-        String sql = "DELETE FROM Person";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) { stmt.executeUpdate(); }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException();
-        }
     }
 }

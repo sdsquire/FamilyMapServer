@@ -4,11 +4,11 @@ import Resources.*;
 import java.sql.*;
 
 /** Intermedates between the User models and the SQL database */
-public class UserDAO {
-    /** The connection with the database */
-    private final Connection conn;
-    public UserDAO(Connection conn) { this.conn = conn; }
-
+public class UserDAO extends DAO{
+    public UserDAO(Connection conn) {
+        super(conn);
+        tableName = "User";
+    }
     /**
      * Inserts a new user into the database.
      * @param user A UserModel representation of the user to be inserted
@@ -29,7 +29,7 @@ public class UserDAO {
         } catch (SQLException e) {
             if (e.getMessage().contains("CONSTRAINT_CHECK"))
                 throw new DataAccessException("Improper data entered");
-            else if (e.getMessage().contains("PRIMARY KEY"))
+            else if (e.getMessage().contains("PRIMARYKEY"))
                 throw new DataAccessException("User already exists");
             else
                 throw new DataAccessException("Error accessing data");
@@ -38,16 +38,16 @@ public class UserDAO {
 
     /**
      * Finds a user in the database.
-     * @param userID the primary key for the person
+     * @param username the primary key for the person
      * @return user the UserModel representation of the user searched for
      * @throws DataAccessException if there is an error accessing the data
      */
-    public UserModel find(String userID) throws DataAccessException {
+    public UserModel find(String username) throws DataAccessException {
         UserModel user;
         ResultSet rs = null;
         String sql = "SELECT * FROM User WHERE username = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, userID);
+            stmt.setString(1, username);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 user = new UserModel(rs.getString("username"), rs.getString("password"),
@@ -66,14 +66,14 @@ public class UserDAO {
         return null;
     }
 
-    /** Drops all entries in the User database. */
-    public void Clear() throws DataAccessException {
-        String sql = "DELETE FROM User;";
-        try (Statement stmt = conn.createStatement()){ stmt.executeUpdate(sql); }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException("SQL Error encountered while clearing tables");
-        }
-    }
+//    /** Drops all entries in the User database. */
+//    public void Clear() throws DataAccessException {
+//        String sql = "DELETE FROM User;";
+//        try (Statement stmt = conn.createStatement()){ stmt.executeUpdate(sql); }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//            throw new DataAccessException("SQL Error encountered while clearing tables");
+//        }
+//    }
 }
 

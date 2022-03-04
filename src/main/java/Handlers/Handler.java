@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 
 public class Handler implements HttpHandler {
     @Override
-    public void handle(HttpExchange exchange) throws IOException{}
+    public void handle(HttpExchange exchange) throws IOException{ }
 
     protected void writeResult(HttpExchange exchange, Result result) throws IOException {
         if (result.isSuccess())

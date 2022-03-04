@@ -15,11 +15,12 @@ public class Clear{
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
-            clear(conn);
+
+            this.clear(conn);
+
             db.closeConnection(true);
             return new ClearResult();
         } catch (DataAccessException e) {
-            e.printStackTrace();
             try {
                 db.closeConnection(false);
             } catch (DataAccessException ex) {}

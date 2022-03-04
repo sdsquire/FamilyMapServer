@@ -8,12 +8,10 @@ import java.sql.SQLException;
 import Resources.*;
 
 /** Intermediates between Event models and the SQL database */
-public class EventDAO {
-    /** The connection with the database */
-    private final Connection conn;
-    public EventDAO(Connection conn)
-    {
-        this.conn = conn;
+public class EventDAO extends DAO {
+    public EventDAO(Connection conn) {
+        super(conn);
+        tableName = "Event";
     }
 
     /**
@@ -39,7 +37,7 @@ public class EventDAO {
         } catch (SQLException e) {
             if (e.getMessage().contains("CONSTRAINT_CHECK"))
                 throw new DataAccessException("Improper data entered");
-            else if (e.getMessage().contains("PRIMARY_KEY"))
+            else if (e.getMessage().contains("PRIMARYKEY"))
                 throw new DataAccessException("User already exists");
             else
                 throw new DataAccessException("Error accessing data");
@@ -75,16 +73,5 @@ public class EventDAO {
                 catch (SQLException e) { e.printStackTrace(); }
         }
         return null;
-    }
-
-
-    /** Drops all entries in the Event database. */
-    public void Clear() throws DataAccessException {
-        String sql = "DELETE FROM Event";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) { stmt.executeUpdate(); }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException("Error encountered while clearing table");
-        }
     }
 }

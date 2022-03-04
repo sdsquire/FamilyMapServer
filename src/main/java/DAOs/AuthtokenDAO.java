@@ -7,11 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /** Intermediates between Authtoken models and the SQL database. */
-public class AuthtokenDAO {
-    /** The connection to the database */
-    private final Connection conn;
-    public AuthtokenDAO(Connection conn) { this.conn = conn; }
-
+public class AuthtokenDAO extends DAO{
+    public AuthtokenDAO(Connection conn) {
+        super(conn);
+        tableName = "Authtoken";
+    }
     /**
      * Inserts a new authtoken into the database.
      * @param authtoken An AuthtokenModel representation of the authtoken to be
@@ -27,7 +27,7 @@ public class AuthtokenDAO {
         } catch (SQLException e) {
             if (e.getMessage().contains("CONSTRAINT_CHECK"))
                 throw new DataAccessException("Improper data entered");
-            else if (e.getMessage().contains("PRIMARY_KEY"))
+            else if (e.getMessage().contains("PRIMARYKEY"))
                 throw new DataAccessException("User already exists");
             else
                 throw new DataAccessException("Error accessing data");
@@ -60,17 +60,6 @@ public class AuthtokenDAO {
                 catch (SQLException e) { e.printStackTrace(); }
         }
         return null;
-    }
-
-    /** Drops all entries in the authtoken database. */
-    public void Clear() throws DataAccessException {
-        String sql = "DELETE FROM Authtoken";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) { stmt.executeUpdate(); }
-        catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException();
-        }
-
     }
 }
 

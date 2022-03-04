@@ -30,6 +30,8 @@ public class PersonModel{
         this.motherID = motherID;
         this.spouseID = spouseID;
     }
+    public PersonModel(){}
+
 
     public String getPersonID() { return personID; }
     public String getAssociatedUsername() { return associatedUsername; }
