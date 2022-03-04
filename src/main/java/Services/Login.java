@@ -33,9 +33,7 @@ public class Login {
             db.closeConnection(true);
             return new Results.LoginResult(authtoken, req.getUsername(), personID);
         } catch (DataAccessException | InvalidRequestException e) {
-            try {
-                db.closeConnection(false);
-            } catch (DataAccessException ex) {}
+            db.closeConnection(false);
             return new Results.LoginResult(e.getMessage());
         }
     }

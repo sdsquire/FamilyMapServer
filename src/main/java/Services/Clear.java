@@ -21,9 +21,7 @@ public class Clear{
             db.closeConnection(true);
             return new ClearResult();
         } catch (DataAccessException e) {
-            try {
-                db.closeConnection(false);
-            } catch (DataAccessException ex) {}
+            db.closeConnection(false);
             return new ClearResult("Error: Unable to clear database");
         }
     }

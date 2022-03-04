@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import Resources.*;
 
 /** Intermediates between Event models and the SQL database */
@@ -51,27 +53,44 @@ public class EventDAO extends DAO {
      * @throws DataAccessException if there is an issue with the SQL database
      */
     public EventModel find(String eventID) throws DataAccessException {
-        EventModel event;
+        EventModel event = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM Event WHERE eventID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, eventID);
             rs = stmt.executeQuery();
-            if (rs.next()) {
+            if (rs.next())
                 event = new EventModel(rs.getString("eventID"), rs.getString("associatedUsername"),
                         rs.getString("personID"), rs.getFloat("latitude"), rs.getFloat("longitude"),
                         rs.getString("country"), rs.getString("city"), rs.getString("eventType"),
                         rs.getInt("year"));
-                return event;
-            }
+            return event;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while finding event");
-        } finally {
+        } finally { // FIXME: What does this finally block do?
             if(rs != null)
                 try { rs.close(); }
                 catch (SQLException e) { e.printStackTrace(); }
         }
+    }
+
+    public ArrayList<EventModel> getUserEvents(String username) {
+        ArrayList<EventModel> events = new ArrayList<>();
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Event WHERE associatedUsername = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+            while (rs.next())
+                events.add(new EventModel(rs.getString("eventID"), rs.getString("associatedUsername"),
+                        rs.getString("personID"), rs.getFloat("latitude"), rs.getFloat("longitude"),
+                        rs.getString("country"), rs.getString("city"), rs.getString("eventType"),
+                        rs.getInt("year")));
+            return events;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } //FIXME: do I need a finally block here?
         return null;
     }
 }

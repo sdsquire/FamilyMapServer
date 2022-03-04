@@ -42,17 +42,13 @@ public class Fill {
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
-            pDAO = new PersonDAO(conn);
-            eDAO = new EventDAO(conn);
 
             this.fill(generations, conn);
 
             db.closeConnection(true);
             return new FillResult("Successfully added " + peopleCount + " persons and " + eventCount + " events to the database.", true);
         } catch (DataAccessException | InvalidRequestException e) {
-            try {
-                db.closeConnection(false);
-            } catch (DataAccessException ex) {}
+            db.closeConnection(false);
             return new FillResult(e.getMessage());
         }
     }
@@ -60,6 +56,8 @@ public class Fill {
     /** Fills the user's family tree to a specified number of generations; called by other services */
     protected void fill(int generations, Connection conn) throws DataAccessException, InvalidRequestException {
         UserDAO uDAO = new UserDAO(conn);
+        pDAO = new PersonDAO(conn);
+        eDAO = new EventDAO(conn);
         // LOCATE USER AND ASSOCIATED PERSON //
         UserModel targetUser = uDAO.find(username);
         if (targetUser == null)

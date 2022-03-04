@@ -32,10 +32,9 @@ public class Server {
 		server.createContext("/user/login", new LoginHandler());
 		server.createContext("/clear", new ClearHandler());
 		server.createContext("/fill", new FillHandler());
-//		server.createContext("/event", new GetEventHandler());
+		server.createContext("/load", new LoadHandler());
+		server.createContext("/event", new GetEventsHandler());
 //		server.createContext("/person", new GetPersonHandler());
-//		server.createContext("/load", new LoadHandler());
-//		server.createContext("/register", new RegisterHandler());
 		server.createContext("/", new FileHandler());
 		
 		// Log message indicating that the HttpServer is about to start accepting incoming client connections.

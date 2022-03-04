@@ -4,6 +4,8 @@ import Models.*;
 import Resources.*;
 import Requests.RegisterRequest;
 import Results.RegisterResult;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.UUID;
 
@@ -13,7 +15,7 @@ public class Register {
     * Registers a new user.
     * @return A RegisterResult containing an authtoken, username, and personID.
     */
-    public RegisterResult register(RegisterRequest req) {
+    public RegisterResult register(RegisterRequest req) throws IOException {
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
@@ -30,12 +32,12 @@ public class Register {
             new UserDAO(conn).insert(uModel);
             new AuthtokenDAO(conn).insert(aModel);
 
+            new Fill(req.getUsername(), conn).fill(4, conn);
+
             db.closeConnection(true);
             return new RegisterResult(authtoken, req.getUsername(), personID);
-        } catch (DataAccessException e) {
-            try {
-                db.closeConnection(false);
-            } catch (DataAccessException ex) {}
+        } catch (DataAccessException | InvalidRequestException e) {
+            db.closeConnection(false);
             return new RegisterResult(e.getMessage());
         }
     }

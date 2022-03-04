@@ -32,7 +32,7 @@ public class Database {
     //IMPORTANT: IF YOU FAIL TO CLOSE A CONNECTION AND TRY TO REOPEN THE DATABASE THIS WILL CAUSE THE
     //DATABASE TO LOCK. YOUR CODE MUST ALWAYS INCLUDE A CLOSURE OF THE DATABASE NO MATTER WHAT ERRORS
     //OR PROBLEMS YOU ENCOUNTER
-    public void closeConnection(boolean commit) throws DataAccessException {
+    public void closeConnection(boolean commit) {
         try {
             if (commit)
                 conn.commit();
@@ -43,7 +43,6 @@ public class Database {
             conn = null;
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DataAccessException("Unable to close database connection");
         }
     }
 

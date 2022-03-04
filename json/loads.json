@@ -1,0 +1,34 @@
+{
+	"users":[
+      {
+      "username":"username",
+      "password":"password",
+      "email":"email",
+      "firstName":"firstname",
+      "lastName":"lastname",
+      "gender":"m"
+      }
+	],
+	"persons":[
+      {
+        "PersonID":"sashada",
+        "associatedUsername":"samiam",
+        "firstName":"sam",
+        "lastName":"Squires",
+        "gender":"m"
+      }
+	],
+	"events":[
+      {
+        "eventID": "pishaca",
+        "associatedUsername": "samiam",
+        "personID": "shasada",
+        "latitude": 144,
+        "longitude": 300,
+        "country": "USA",
+        "city": "Augusta",
+        "eventType": "craziness",
+        "year": 2005
+      }
+	]
+}

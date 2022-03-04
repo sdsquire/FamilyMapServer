@@ -6,7 +6,6 @@ import Services.Register;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.*;
 import java.io.*;
-import java.net.HttpURLConnection;
 
 public class RegisterHandler extends Handler {
     @Override

@@ -3,7 +3,7 @@ import Models.UserModel;
 import Resources.*;
 import java.sql.*;
 
-/** Intermedates between the User models and the SQL database */
+/** Intermediates between the User models and the SQL database */
 public class UserDAO extends DAO{
     public UserDAO(Connection conn) {
         super(conn);
@@ -31,6 +31,8 @@ public class UserDAO extends DAO{
                 throw new DataAccessException("Improper data entered");
             else if (e.getMessage().contains("PRIMARYKEY"))
                 throw new DataAccessException("User already exists");
+            else if (e.getMessage().contains("NOTNULL"))
+                throw new DataAccessException("Attempted to insert null for non-optional data");
             else
                 throw new DataAccessException("Error accessing data");
         }
