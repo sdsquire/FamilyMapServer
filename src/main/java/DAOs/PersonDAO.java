@@ -1,9 +1,12 @@
 package DAOs;
+import Models.EventModel;
 import Models.PersonModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import Resources.*;
 
 /** Intermediates between Person models and the SQL database */
@@ -73,4 +76,24 @@ public class PersonDAO extends DAO {
         }
         return null;
     }
+
+
+    public ArrayList<PersonModel> getUserPersons(String username) {
+        ArrayList<PersonModel> persons = new ArrayList<>();
+        ResultSet rs = null;
+        String sql = "SELECT * FROM Person WHERE associatedUsername = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+            while (rs.next())
+                persons.add(new PersonModel(rs.getString("personID"), rs.getString("associatedUsername"),
+                        rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"),
+                        rs.getString("fatherID"), rs.getString("motherID"), rs.getString("spouseID")));
+            return persons;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } //FIXME: do I need a finally block here?
+        return null;
+    }
 }
+
