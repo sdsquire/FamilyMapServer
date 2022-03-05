@@ -125,31 +125,25 @@ public class Fill {
         EventModel motherDeath = CreateEventBase();
         motherDeath.setEventType("death");
         motherDeath.setPersonID(mother.getPersonID());
-        do {
-            motherDeath.setYear(motherBirth.getYear() + rand.nextInt(121));
-        } while (motherDeath.getYear() < childBirthYear);
+        motherDeath.setYear(motherBirth.getYear()+ rand.nextInt(motherBirth.getYear() + 121 - childBirthYear));
         eDAO.insert(motherDeath);
         eventCount += 1;
 
         EventModel fatherDeath = CreateEventBase();
         fatherDeath.setEventType("death");
         fatherDeath.setPersonID(father.getPersonID());
-        do {
-            fatherDeath.setYear(fatherBirth.getYear() + rand.nextInt(121));
-        } while (fatherDeath.getYear() < childBirthYear);
+        fatherDeath.setYear(childBirthYear + rand.nextInt(fatherBirth.getYear() + 121 - childBirthYear));
         eDAO.insert(fatherDeath);
         eventCount += 1;
 
         // INSERT PARENTS INTO DATABASE //
         mother.setSpouseID(father.getPersonID());
         generatePerson(mother, motherBirth.getYear(), generations - 1);
-//        mother.setFatherID(generatePerson(mother, motherBirth.getYear(), generations - 1));
         pDAO.insert(mother);
         peopleCount += 1;
 
         father.setSpouseID(father.getPersonID());
         generatePerson(father, fatherBirth.getYear(), generations - 1);
-//        father.setFatherID(generatePerson(father, fatherBirth.getYear(), generations - 1));
         pDAO.insert(father);
         peopleCount += 1;
 

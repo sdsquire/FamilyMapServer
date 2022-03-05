@@ -12,7 +12,7 @@ public class Result {
     }
 
     public Result(String message) {
-        this.message = message;
+        this.message = "error: " + message;
         this.success = false;
     }
 

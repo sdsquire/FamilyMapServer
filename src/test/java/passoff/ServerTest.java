@@ -77,9 +77,7 @@ public class ServerTest {
         ServerTest.displayCurrentTest = displayCurrentTest;
     }
 
-    /**
-     * Attempts to make a connection to your server that you wrote
-     */
+    /** Attempts to make a connection to your server that you wrote */
     @BeforeEach
     @DisplayName("Setup")
     public void setup(TestInfo testInfo) throws ServerConnectionException {

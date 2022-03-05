@@ -24,8 +24,8 @@ public class EventModel {
     /** Initializes an event object; parameters equivalent to data members */
     public EventModel(String eventID, String username, String personID, float latitude, float longitude,
                  String country, String city, String eventType, int year) {
-        this.eventID = eventID;
         this.associatedUsername = username;
+        this.eventID = eventID;
         this.personID = personID;
         this.latitude = latitude;
         this.longitude = longitude;
