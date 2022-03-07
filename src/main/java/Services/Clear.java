@@ -15,13 +15,16 @@ public class Clear{
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
-
+            System.out.println("Opening connection: Clear");
+	    
             this.clear(conn);
 
             db.closeConnection(true);
+            System.out.println("Closing connection: Clear");
             return new ClearResult();
         } catch (DataAccessException e) {
             db.closeConnection(false);
+            System.out.println("Closing connection: Clear");
             return new ClearResult("Error: Unable to clear database");
         }
     }

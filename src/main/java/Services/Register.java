@@ -19,6 +19,7 @@ public class Register {
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
+	    System.out.println("Opening connection: Register");
             // SET UP MODELS WITH UNIQUE IDENTIFIERS //
             String personID = UUID.randomUUID().toString();
             String authtoken = UUID.randomUUID().toString();
@@ -35,9 +36,12 @@ public class Register {
             new Fill(req.getUsername(), conn).fill(4, conn);
 
             db.closeConnection(true);
+
+	    System.out.println("Closing connection: Register");
             return new RegisterResult(authtoken, req.getUsername(), personID);
         } catch (DataAccessException | InvalidRequestException e) {
             db.closeConnection(false);
+	    System.out.println("Closing connection: Register");
             return new RegisterResult(e.getMessage());
         }
     }

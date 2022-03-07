@@ -23,7 +23,7 @@ public class GetEventResult extends Result {
     /** The year the event took place. */
     /** Initializes if multiple events were requested. */
     public GetEventResult(EventModel event) {
-        String eventID = event.getEventID();
+        String eventID = event.getEventID(); //FIXME : only sending longitude and latitude to success
         String associatedUsername = event.getUsername();
         String personID = event.getPersonID();
         float latitude = event.getLatitude();

@@ -17,6 +17,7 @@ public class Load {
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
+            System.out.println("Opening connection: Load");
             new Clear().clear(conn);
 
             // INSERT DATA FROM REQUEST //
@@ -31,11 +32,13 @@ public class Load {
                 eDAO.insert(event);
 
             db.closeConnection(true);
+            System.out.println("Closing connection: Load");
             return new LoadResult("Successfully added " + req.getUsers().size() + " users, " +
                                 req.getPersons().size() + " persons, and " +
                                 req.getEvents().size() + " events to the database.", true);
         } catch (DataAccessException e) {
             db.closeConnection(false);
+            System.out.println("Closing connection: Load");
             return new LoadResult(e.getMessage());
         }
     }

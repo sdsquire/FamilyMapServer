@@ -18,6 +18,7 @@ public class Login {
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
+            System.out.println("Opening connection: Login");
             // CHECK REQUEST VALIDITY
             UserModel user = new UserDAO(conn).find(req.getUsername());
             if (user == null)
@@ -31,9 +32,11 @@ public class Login {
             new AuthtokenDAO(conn).insert(new AuthtokenModel(authtoken, req.getUsername()));
 
             db.closeConnection(true);
+            System.out.println("Closing connection: Login");
             return new Results.LoginResult(authtoken, req.getUsername(), personID);
         } catch (DataAccessException | InvalidRequestException e) {
             db.closeConnection(false);
+            System.out.println("Closing connection: Login");
             return new Results.LoginResult(e.getMessage());
         }
     }

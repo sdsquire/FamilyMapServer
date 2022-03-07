@@ -42,13 +42,16 @@ public class Fill {
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
+            System.out.println("Opening connection: Fill");
 
             this.fill(generations, conn);
 
             db.closeConnection(true);
+            System.out.println("Closing connection: Fill");
             return new FillResult("Successfully added " + peopleCount + " persons and " + eventCount + " events to the database.", true);
         } catch (DataAccessException | InvalidRequestException e) {
             db.closeConnection(false);
+            System.out.println("Closing connection: Fill");
             return new FillResult(e.getMessage());
         }
     }
@@ -111,9 +114,8 @@ public class Fill {
         EventModel marriage = CreateEventBase();
         marriage.setEventType("marriage");
         marriage.setPersonID(mother.getPersonID());
-        do {
-            marriage.setYear(motherBirth.getYear() + rand.nextInt(37 + 1));
-        } while (marriage.getYear() < fatherBirth.getYear() + 13);
+        marriage.setYear(motherBirth.getYear() > fatherBirth.getYear() ? motherBirth.getYear()+ rand.nextInt(37 + 1) :
+                    fatherBirth.getYear() + rand.nextInt(37 + 1 - fatherBirth.getYear() + motherBirth.getYear()));
         eDAO.insert(marriage);
         eventCount += 1;
         marriage.setEventID(UUID.randomUUID().toString());
