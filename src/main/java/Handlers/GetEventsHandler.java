@@ -12,7 +12,7 @@ public class GetEventsHandler extends Handler {
         Result result = !exchange.getRequestMethod().equalsIgnoreCase("get") ? new Result("Request must be a GET request") :
                         !exchange.getRequestHeaders().containsKey("Authorization") ? new Result("No authorization token to authenticate") :
                         eventID == null ? new GetEvents().getEvents(exchange.getRequestHeaders().getFirst("Authorization")) :
-                        new GetEvents().getEvents(eventID, exchange.getRequestHeaders().getFirst("Authorization"));
+                        new GetEvents().getEvent(eventID, exchange.getRequestHeaders().getFirst("Authorization"));
 
         writeResult(exchange, result);
     }

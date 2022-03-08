@@ -1,10 +1,7 @@
 package DAOs;
 import Resources.DataAccessException;
 import Models.AuthtokenModel;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /** Intermediates between Authtoken models and the SQL database. */
 public class AuthtokenDAO extends DAO{

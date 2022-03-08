@@ -13,7 +13,7 @@ public class GetPersonsResult extends Result{
     }
     public GetPersonsResult(String message) { super(message); }
 
-    public ArrayList<PersonModel> getPersons() { return data; }
+    public ArrayList<PersonModel> getData() { return data; }
 
     public void setPersons(ArrayList<PersonModel> data) { this.data = data; }
 }

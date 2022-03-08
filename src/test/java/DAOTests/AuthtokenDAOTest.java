@@ -1,5 +1,4 @@
 package DAOTests;
-
 import Resources.*;
 import DAOs.AuthtokenDAO;
 import Models.AuthtokenModel;

@@ -55,4 +55,20 @@ public class GetEventResult extends Result {
     public void setCountry(String country) { this.country = country; }
     public void setCity(String city) { this.city = city; }
     public void setEventType(String eventType) { this.eventType = eventType; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || EventModel.class != o.getClass())
+            return false;
+        EventModel that = (EventModel) o;
+        return eventID.equals(that.getEventID()) &&
+                associatedUsername.equals(that.getUsername()) &&
+                personID.equals(that.getPersonID()) &&
+                latitude == that.getLatitude ()&&
+                longitude == that.getLongitude ()&&
+                country.equals(that.getCountry()) &&
+                city.equals(that.getCity()) &&
+                eventType.equals(that.getEventType()) &&
+                year == that.getYear();
+    }
 }

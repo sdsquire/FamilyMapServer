@@ -34,6 +34,7 @@ public class Database {
     //OR PROBLEMS YOU ENCOUNTER
     public void closeConnection(boolean commit) {
         try {
+            if (conn == null) return;
             if (commit)
                 conn.commit();
             else

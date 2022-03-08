@@ -61,7 +61,8 @@ public class PersonModel{
                 associatedUsername.equals(that.associatedUsername) &&
                 firstName.equals(that.firstName) &&
                 lastName.equals(that.lastName) &&
-                fatherID.equals(that.fatherID) &&
-                motherID.equals(that.motherID) && spouseID.equals(that.spouseID);
+                (fatherID == null && that.fatherID == null || fatherID.equals(that.fatherID)) &&
+                (motherID == null && that.motherID == null || motherID.equals(that.motherID)) &&
+                (spouseID == null && that.spouseID == null || spouseID.equals(that.spouseID));
     }
 }

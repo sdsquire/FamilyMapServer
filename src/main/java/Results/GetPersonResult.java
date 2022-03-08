@@ -50,4 +50,19 @@ public class GetPersonResult extends Result {
     public void setFatherID(String fatherID) { this.fatherID = fatherID; }
     public void setMotherID(String motherID) { this.motherID = motherID; }
     public void setSpouseID(String spouseID) { this.spouseID = spouseID; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || PersonModel.class != o.getClass())
+            return false;
+        PersonModel that = (PersonModel) o;
+        return gender.equals(that.getGender()) &&
+                personID.equals(that.getPersonID()) &&
+                associatedUsername.equals(that.getAssociatedUsername()) &&
+                firstName.equals(that.getFirstName()) &&
+                lastName.equals(that.getLastName()) &&
+                (fatherID == null && that.getFatherID() == null || fatherID.equals(that.getFatherID())) &&
+                (motherID == null && that.getMotherID() == null || motherID.equals(that.getMotherID())) &&
+                (spouseID == null && that.getSpouseID() == null || spouseID.equals(that.getSpouseID()));
+    }
 }

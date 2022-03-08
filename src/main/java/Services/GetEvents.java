@@ -5,7 +5,6 @@ import Resources.*;
 import Results.GetEventResult;
 import Results.GetEventsResult;
 import java.sql.Connection;
-import java.util.ArrayList;
 
 public class GetEvents {
     public GetEventsResult getEvents(String authtoken) {
@@ -29,7 +28,7 @@ public class GetEvents {
             return new GetEventsResult(e.getMessage());
         }
     }
-    public GetEventResult getEvents(String eventID, String authtoken) {
+    public GetEventResult getEvent(String eventID, String authtoken) {
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
