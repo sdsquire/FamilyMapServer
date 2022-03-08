@@ -49,7 +49,7 @@ public class Database {
     public void clearTables() throws DataAccessException {
         String [] tables = {"User", "Authtoken", "Person", "Event"};
         for (String table : tables ) {
-            String sql = "DELETE FROM " + table;
+            @SuppressWarnings("SqlWithoutWhere") String sql = "DELETE FROM " + table;
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.executeUpdate();
             } catch (SQLException e) {

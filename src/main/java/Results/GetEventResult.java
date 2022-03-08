@@ -21,17 +21,19 @@ public class GetEventResult extends Result {
     /** The type of event that took place. */
     private String eventType;
     /** The year the event took place. */
+    private int year;
     /** Initializes if multiple events were requested. */
     public GetEventResult(EventModel event) {
-        String eventID = event.getEventID(); //FIXME : only sending longitude and latitude to success
-        String associatedUsername = event.getUsername();
-        String personID = event.getPersonID();
-        float latitude = event.getLatitude();
-        float longitude = event.getLongitude();
-        String country = event.getCountry();
-        String city = event.getCity();
-        String eventType = event.getEventType();
-        success = true;
+        this.eventID = event.getEventID(); //FIXME : only sending longitude and latitude to success
+        this.associatedUsername = event.getUsername();
+        this.personID = event.getPersonID();
+        this.latitude = event.getLatitude();
+        this.longitude = event.getLongitude();
+        this.country = event.getCountry();
+        this.city = event.getCity();
+        this.eventType = event.getEventType();
+        this.year = event.getYear();
+        success= true;
     }
     /** Initializes in case of error. */
     public GetEventResult(String message) { super(message); }

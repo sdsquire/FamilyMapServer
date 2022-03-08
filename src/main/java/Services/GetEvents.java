@@ -37,8 +37,12 @@ public class GetEvents {
             AuthtokenModel thisUser = new AuthtokenDAO(conn).find(authtoken);
             if (thisUser == null)
                 throw new DataAccessException("Invalid authorization token");
+            String username = thisUser.getUsername();
+
 
             GetEventResult result = new GetEventResult(new EventDAO(conn).find(eventID));
+            if (!result.getAssociatedUsername().equals(username))
+                throw new DataAccessException("User is not authorized to access this person.");
 
             db.closeConnection(true);
 

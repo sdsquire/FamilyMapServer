@@ -5,7 +5,6 @@ import Resources.*;
 import Results.GetPersonResult;
 import Results.GetPersonsResult;
 import java.sql.Connection;
-import java.util.ArrayList;
 
 public class GetPersons {
     public GetPersonsResult getPersons(String authtoken) {
@@ -29,7 +28,7 @@ public class GetPersons {
             return new GetPersonsResult(e.getMessage());
         }
     }
-    public GetPersonResult getPersons(String personID, String authtoken) {
+    public GetPersonResult getPerson(String personID, String authtoken) {
         Database db = new Database();
         try {
             Connection conn = db.openConnection();
@@ -40,6 +39,8 @@ public class GetPersons {
             String username = thisUser.getUsername();
 
             GetPersonResult result = new GetPersonResult(new PersonDAO(conn).find(personID));
+            if (!result.getAssociatedUsername().equals(username))
+                throw new DataAccessException("User is not authorized to access this person.");
 
             db.closeConnection(true);
             System.out.println("Closing connection: GetPerson");

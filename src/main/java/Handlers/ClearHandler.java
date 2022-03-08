@@ -1,6 +1,5 @@
 package Handlers;
 import java.io.*;
-import java.net.*;
 import Results.ClearResult;
 import Services.Clear;
 import com.sun.net.httpserver.*;

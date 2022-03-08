@@ -1,7 +1,7 @@
 package Results;
 import Models.PersonModel;
 
-/** Returns the result of getting an person (or multiple persons). */
+/** Returns the result of getting a person (or multiple persons). */
 public class GetPersonResult extends Result {
     /** A unique identifier for a person; the primary key. */
     private String personID;
@@ -29,8 +29,8 @@ public class GetPersonResult extends Result {
         this.fatherID = person.getFatherID();
         this.motherID = person.getMotherID();
         this.spouseID = person.getSpouseID();
+        success = true;
     }
-    /** Initializes in case of error. */
     public GetPersonResult(String message) { super(message); }
 
     public String getPersonID() { return personID; }

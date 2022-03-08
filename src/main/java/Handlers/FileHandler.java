@@ -1,7 +1,6 @@
 package Handlers;
 import com.sun.net.httpserver.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
 

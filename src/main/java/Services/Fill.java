@@ -114,8 +114,8 @@ public class Fill {
         EventModel marriage = CreateEventBase();
         marriage.setEventType("marriage");
         marriage.setPersonID(mother.getPersonID());
-        marriage.setYear(motherBirth.getYear() > fatherBirth.getYear() ? motherBirth.getYear()+ rand.nextInt(37 + 1) :
-                    fatherBirth.getYear() + rand.nextInt(37 + 1 - fatherBirth.getYear() + motherBirth.getYear()));
+        marriage.setYear(motherBirth.getYear() > fatherBirth.getYear() ? motherBirth.getYear() + 13 + rand.nextInt(37 + 1) :
+                    fatherBirth.getYear() + 13 + rand.nextInt(37 + 1 - fatherBirth.getYear() + motherBirth.getYear()));
         eDAO.insert(marriage);
         eventCount += 1;
         marriage.setEventID(UUID.randomUUID().toString());
@@ -144,7 +144,7 @@ public class Fill {
         pDAO.insert(mother);
         peopleCount += 1;
 
-        father.setSpouseID(father.getPersonID());
+        father.setSpouseID(mother.getPersonID());
         generatePerson(father, fatherBirth.getYear(), generations - 1);
         pDAO.insert(father);
         peopleCount += 1;

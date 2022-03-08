@@ -1,7 +1,5 @@
 package Requests;
-import Models.EventModel;
-import Models.PersonModel;
-import Models.UserModel;
+import Models.*;
 import java.util.ArrayList;
 
 /** Passes data to be loaded into the server. */

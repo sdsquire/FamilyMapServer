@@ -25,12 +25,7 @@ public class AuthtokenDAO extends DAO{
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            if (e.getMessage().contains("CONSTRAINT_CHECK"))
-                throw new DataAccessException("Improper data entered");
-            else if (e.getMessage().contains("PRIMARYKEY"))
-                throw new DataAccessException("User already exists");
-            else
-                throw new DataAccessException("Error accessing data");
+            throw super.parseInsertException(e);
         }
     }
 

@@ -1,5 +1,4 @@
 package DAOs;
-import Models.EventModel;
 import Models.PersonModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,14 +35,7 @@ public class PersonDAO extends DAO {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            if (e.getMessage().contains("CONSTRAINT_CHECK"))
-                throw new DataAccessException("Improper data entered");
-            else if (e.getMessage().contains("PRIMARYKEY"))
-                throw new DataAccessException("User already exists");
-            else if (e.getMessage().contains("NOTNULL"))
-                throw new DataAccessException("Cannot register user with missing data");
-            else
-                throw new DataAccessException("Error accessing data");
+            throw super.parseInsertException(e);
         }
     }
 
@@ -80,7 +72,7 @@ public class PersonDAO extends DAO {
 
     public ArrayList<PersonModel> getUserPersons(String username) {
         ArrayList<PersonModel> persons = new ArrayList<>();
-        ResultSet rs = null;
+        ResultSet rs;
         String sql = "SELECT * FROM Person WHERE associatedUsername = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);

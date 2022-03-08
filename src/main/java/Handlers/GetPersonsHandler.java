@@ -1,6 +1,5 @@
 package Handlers;
-import Results.GetPersonResult;
-import Results.GetPersonsResult;
+import Results.Result;
 import Services.GetPersons;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -11,17 +10,11 @@ public class GetPersonsHandler extends Handler {
     public void handle(HttpExchange exchange) throws IOException {
         String[] parts = exchange.getRequestURI().toString().split("/");
         String personID = parts.length > 2 ? parts[2] : null;
-        if (personID == null) {
-            GetPersonsResult result = !exchange.getRequestMethod().equalsIgnoreCase("get") ? new GetPersonsResult("Request must be a GET request") :
-                                    !exchange.getRequestHeaders().containsKey("Authorization") ? new GetPersonsResult("No authorization token to authenticate") :
-                                    new GetPersons().getPersons(exchange.getRequestHeaders().getFirst("Authorization"));
-            writeResult(exchange, result);
-        } else {
-            GetPersonResult result = !exchange.getRequestMethod().equalsIgnoreCase("get") ? new GetPersonResult("Request must be a GET request") :
-                                    !exchange.getRequestHeaders().containsKey("Authorization") ? new GetPersonResult("No authorization token to authenticate") :
-                                    new GetPersons().getPersons(personID, exchange.getRequestHeaders().getFirst("Authorization"));
+        Result result = !exchange.getRequestMethod().equalsIgnoreCase("get") ? new Result("Request must be a GET request") :
+                               !exchange.getRequestHeaders().containsKey("Authorization") ? new Result("No authorization token to authenticate") :
+                               personID == null ? new GetPersons().getPersons(exchange.getRequestHeaders().getFirst("Authorization")) :
+                                               new GetPersons().getPerson(personID, exchange.getRequestHeaders().getFirst("Authorization"));
 
-            writeResult(exchange, result);
-        }
+        writeResult(exchange, result);
     }
 }

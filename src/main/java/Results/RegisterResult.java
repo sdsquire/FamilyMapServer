@@ -17,10 +17,7 @@ public class RegisterResult extends Result{
         success = true;
     }
     /** Initializes in case of error. */
-    public RegisterResult(String message) {
-        this.message = message;
-        success = false;
-    }
+    public RegisterResult(String message) { super(message); }
 
     public String getAuthtoken() { return authtoken; }
     public String getUsername() { return username; }

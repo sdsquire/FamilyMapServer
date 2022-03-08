@@ -37,12 +37,7 @@ public class EventDAO extends DAO {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            if (e.getMessage().contains("CONSTRAINT_CHECK"))
-                throw new DataAccessException("Improper data entered");
-            else if (e.getMessage().contains("PRIMARYKEY"))
-                throw new DataAccessException("User already exists");
-            else
-                throw new DataAccessException("Error accessing data");
+            throw super.parseInsertException(e);
         }
     }
 
@@ -77,7 +72,7 @@ public class EventDAO extends DAO {
 
     public ArrayList<EventModel> getUserEvents(String username) {
         ArrayList<EventModel> events = new ArrayList<>();
-        ResultSet rs = null;
+        ResultSet rs;
         String sql = "SELECT * FROM Event WHERE associatedUsername = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);

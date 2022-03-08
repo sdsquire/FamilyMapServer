@@ -1,17 +1,10 @@
 package Handlers;
-
 import Requests.LoadRequest;
-import Requests.RegisterRequest;
 import Results.LoadResult;
-import Results.RegisterResult;
 import Services.Load;
-import Services.Register;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 
 public class LoadHandler extends Handler{
     @Override

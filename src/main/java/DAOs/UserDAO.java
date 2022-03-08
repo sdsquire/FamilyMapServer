@@ -27,14 +27,7 @@ public class UserDAO extends DAO{
 
             stmt.executeUpdate();
         } catch (SQLException e) {
-            if (e.getMessage().contains("CONSTRAINT_CHECK"))
-                throw new DataAccessException("Improper data entered");
-            else if (e.getMessage().contains("PRIMARYKEY"))
-                throw new DataAccessException("User already exists");
-            else if (e.getMessage().contains("NOTNULL"))
-                throw new DataAccessException("Attempted to insert null for non-optional data");
-            else
-                throw new DataAccessException("Error accessing data");
+            throw super.parseInsertException(e);
         }
     }
 
@@ -67,15 +60,5 @@ public class UserDAO extends DAO{
         }
         return null;
     }
-
-//    /** Drops all entries in the User database. */
-//    public void Clear() throws DataAccessException {
-//        String sql = "DELETE FROM User;";
-//        try (Statement stmt = conn.createStatement()){ stmt.executeUpdate(sql); }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//            throw new DataAccessException("SQL Error encountered while clearing tables");
-//        }
-//    }
 }
 
