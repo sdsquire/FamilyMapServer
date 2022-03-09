@@ -28,8 +28,9 @@ public class GetPersonsTest extends ServiceTest {
     @Test
     public void negativeSingleTest() {
         PersonModel targetPerson = TEST_LOAD.getPersons().get(0);
-        GetPersonResult res = new GetPersons().getPerson(targetPerson.getPersonID(), authtoken);
-        assertNotEquals(res, TEST_LOAD.getPersons().get(1));
+        PersonModel otherPerson = new PersonModel("041940", "supes", "Lex", "Luthor", "m", null, null, null);
+        GetPersonResult res = new GetPersons().getPerson(otherPerson.getPersonID(), authtoken);
+        assertFalse(res.isSuccess());
     }
 
     @Test

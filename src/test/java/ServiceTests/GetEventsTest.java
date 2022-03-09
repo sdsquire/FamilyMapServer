@@ -4,8 +4,7 @@ import Requests.LoginRequest;
 import Results.GetEventResult;
 import Results.GetEventsResult;
 import Services.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GetEventsTest extends ServiceTest {
@@ -22,14 +21,16 @@ public class GetEventsTest extends ServiceTest {
         EventModel targetEvent = TEST_LOAD.getEvents().get(0);
         GetEventResult res = new GetEvents().getEvent(targetEvent.getEventID(), authtoken);
         assertNotNull(res);
+        assertTrue(res.isSuccess());
         assertEquals(res, targetEvent);
     }
 
     @Test
     public void negativeSingleTest() {
         EventModel targetEvent = TEST_LOAD.getEvents().get(0);
-        GetEventResult res = new GetEvents().getEvent(targetEvent.getEventID(), authtoken);
-        assertNotEquals(res, TEST_LOAD.getEvents().get(1));
+        EventModel otherEvent = new EventModel("btmn", "supes", TEST_USER.getPersonID(), 40, 74, "USA", "Gotham", "Death", 2003);
+        assertFalse(new GetEvents().getEvent(otherEvent.getEventID(), authtoken).isSuccess());
+
     }
 
     @Test
