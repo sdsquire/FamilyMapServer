@@ -1,5 +1,4 @@
 package ServiceTests;
-import DAOs.DAO;
 import DAOs.EventDAO;
 import DAOs.PersonDAO;
 import DAOs.UserDAO;
@@ -9,7 +8,6 @@ import Resources.DataAccessException;
 import Results.LoadResult;
 import Services.Load;
 import org.junit.jupiter.api.Test;
-import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

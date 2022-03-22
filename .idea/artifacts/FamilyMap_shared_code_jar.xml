@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FamilyMap_shared_code:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FamilyMap_shared_code_jar</output-path>
+    <root id="archive" name="FamilyMap_shared_code.jar">
+      <element id="module-output" name="FamilyMap_shared_code" />
+    </root>
+  </artifact>
+</component>

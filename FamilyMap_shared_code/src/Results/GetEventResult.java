@@ -1,6 +1,5 @@
 package Results;
 import Models.EventModel;
-import java.util.ArrayList;
 
 /** Returns the result of getting an event (or multiple events). */
 public class GetEventResult extends Result {
