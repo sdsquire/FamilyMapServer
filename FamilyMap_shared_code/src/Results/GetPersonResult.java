@@ -3,8 +3,6 @@ import Models.PersonModel;
 
 /** Returns the result of getting a person (or multiple persons). */
 public class GetPersonResult extends Result {
-    /** A unique identifier for a person; the primary key. */
-    private String personID;
     /** The username associated with the person; a foreign key. */
     private String associatedUsername;
     /** The person's first name. */
@@ -33,7 +31,6 @@ public class GetPersonResult extends Result {
     }
     public GetPersonResult(String message) { super(message); }
 
-    public String getPersonID() { return personID; }
     public String getAssociatedUsername() { return associatedUsername; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
@@ -42,7 +39,6 @@ public class GetPersonResult extends Result {
     public String getMotherID() { return motherID; }
     public String getSpouseID() { return spouseID; }
 
-    public void setPersonID(String personID) { this.personID = personID; }
     public void setAssociatedUsername(String associatedUsername) { this.associatedUsername = associatedUsername; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public void setLastName(String lastName) { this.lastName = lastName; }

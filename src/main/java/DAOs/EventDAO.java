@@ -85,7 +85,7 @@ public class EventDAO extends DAO {
             return events;
         } catch (SQLException e) {
             e.printStackTrace();
-        } //FIXME: do I need a finally block here?
+        }
         return null;
     }
 }

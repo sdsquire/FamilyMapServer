@@ -38,8 +38,10 @@ public class GetEvents {
                 throw new DataAccessException("Invalid authorization token");
             String username = thisUser.getUsername();
 
-
-            GetEventResult result = new GetEventResult(new EventDAO(conn).find(eventID));
+            EventModel event = new EventDAO(conn).find(eventID);
+            if (event == null)
+                throw new DataAccessException("Event does not exist.");
+            GetEventResult result = new GetEventResult(event);
             if (!result.getAssociatedUsername().equals(username))
                 throw new DataAccessException("User is not authorized to access this person.");
 

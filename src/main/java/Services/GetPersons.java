@@ -38,7 +38,10 @@ public class GetPersons {
                 throw new DataAccessException("Invalid authorization token");
             String username = thisUser.getUsername();
 
-            GetPersonResult result = new GetPersonResult(new PersonDAO(conn).find(personID));
+            PersonModel person = new PersonDAO(conn).find(personID);
+            if (person == null)
+                throw new DataAccessException("Person does not exist.");
+            GetPersonResult result = new GetPersonResult(person);
             if (!result.getAssociatedUsername().equals(username))
                 throw new DataAccessException("User is not authorized to access this person.");
 

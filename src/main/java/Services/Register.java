@@ -41,7 +41,7 @@ public class Register {
             return new RegisterResult(authtoken, req.getUsername(), personID);
         } catch (DataAccessException | InvalidRequestException e) {
             db.closeConnection(false);
-	    System.out.println("Closing connection: Register");
+            System.out.println("Closing connection: Register");
             return new RegisterResult(e.getMessage());
         }
     }

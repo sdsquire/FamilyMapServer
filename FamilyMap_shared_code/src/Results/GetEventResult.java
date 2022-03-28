@@ -7,8 +7,6 @@ public class GetEventResult extends Result {
     private String associatedUsername;
     /** A unique identifier for the event; the primary key. */
     private String eventID;
-    /** The ID of the person to whim this event belongs; a foreign key. */
-    private String personID;
     /** The latitude coordinates where the event took place. */
     private float latitude;
     /** The longitude coordinates where the event took place. */
@@ -39,7 +37,6 @@ public class GetEventResult extends Result {
 
     public String getAssociatedUsername() { return associatedUsername; }
     public String getEventID() { return eventID; }
-    public String getPersonID() { return personID; }
     public float getLatitude() { return latitude; }
     public float getLongitude() { return longitude; }
     public String getCountry() { return country; }
@@ -48,7 +45,6 @@ public class GetEventResult extends Result {
 
     public void setAssociatedUsername(String associatedUsername) { this.associatedUsername = associatedUsername; }
     public void setEventID(String eventID) { this.eventID = eventID; }
-    public void setPersonID(String personID) { this.personID = personID; }
     public void setLatitude(float latitude) { this.latitude = latitude; }
     public void setLongitude(float longitude) { this.longitude = longitude; }
     public void setCountry(String country) { this.country = country; }
