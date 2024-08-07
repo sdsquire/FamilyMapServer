@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.byu.cs</groupId>
-    <artifactId>FamilyMapServerStudent</artifactId>
+    <artifactId>FamilyMapServer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -33,6 +33,32 @@
             <systemPath>${basedir}/libs/FMSTestingObf.jar</systemPath>
         </dependency>
     </dependencies>
+
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.0</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>Resources.Server</mainClass> <!-- Replace with your main class -->
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+                <mainClass>Resources.Server</mainClass>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 
 
 </project>
